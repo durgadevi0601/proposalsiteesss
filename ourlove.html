@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8">
+<title>Our Love ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{
+    margin:0;
+    min-height:100vh;
+    background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+    font-family: 'Segoe UI', sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+    overflow:auto;
+}
+.card{
+    background: rgba(255,255,255,0.92);
+    padding:25px;
+    border-radius:20px;
+    max-width:600px;
+    max-height:90vh;
+    overflow-y:auto;
+    box-shadow:0 15px 40px rgba(0,0,0,0.2);
+    animation: fadeIn 1.5s ease;
+}
+h1{color:#e91e63; margin-bottom:15px;}
+p{color:#333; line-height:1.8; font-size:15px; white-space: pre-line;}
+.name{margin-top:20px; font-weight:bold; color:#c2185b; font-size:16px;}
+.heart{
+    position:absolute;
+    animation: float 6s infinite ease-in-out;
+    font-size:22px;
+    opacity:0.6;
+}
+@keyframes float{
+    0%{ transform:translateY(0); }
+    50%{ transform:translateY(-40px); }
+    100%{ transform:translateY(0); }
+}
+@keyframes fadeIn{
+    from{opacity:0; transform:scale(0.95);}
+    to{opacity:1; transform:scale(1);}
+}
+.typewriter {
+    display:inline-block;
+    overflow:hidden;
+    border-right:.15em solid #c2185b;
+    white-space:nowrap;
+    animation: typing 5s steps(80,end), blink .75s step-end infinite;
+}
+@keyframes typing { from { width:0 } to { width:100% } }
+@keyframes blink { 50% { border-color:transparent } }
+</style>
+</head>
+<body>
+<div class="card">
+    <h1>❤️ OUR LOVE ❤️</h1>
+    <div id="loveMessage"></div> <!-- each line will appear sequentially -->
+    <div class="name">— AAJAYMAHH 🌻</div>
+    <div class="card">
+    <h1>❤️ OUR LOVE ❤️</h1>
+
+    <p id="loveMessage"></p>
+
+    <div class="name">— AJAYMAHH 💖</div>
+
+    </p>
+</div>
+
+</div>
+<p class="swipeHint">⬆️ Swipe up to see our memories 💖</p>
+
+
+<script>
+// All lines of your love message
+const lines = [
+"💖🌻 ENNODA LIFELA PASAMKANDI YEVALAVO YENGERUKEN,",
+" ANA ORU NALUM ENKITA YARUM PASAMKANDI YENGA VITATHU ILA.",
+" ATHU THERIYATHA ORU PERSON AH IRUNTHA KUDA NA ANBU MATUMTHA KATERUKEN.",
+"ENNALA SIRICHAVANGATHA ATHEGAM ANA ALUTHATHU NA MATUMTHA ENNODA LIFELA….",
+"💖 APEDE THA UNMELAUM ENNAKU FIRST THOUGHT NE YARUNU THERIYATHUNU SOLLA MUDEYATHU ANA NE CLASSMATE NU THERIUM….",
+" UNNAKU ONNU THERIYALA NU FRNDS SONNATHUM ENNODA MINDLA IVANUKU NAMANALA MUDUJA ENNAKU THERUNJA THA AVANUKKU SOLLANUMTHA AASAI PATEN.",
+"💖 APEDETHA UNNATA PESUNEN… ATHU APEDYE KALAPOKULA IPED ENNODA BEST FRIEND AH IRUNTHU APRAM IPO LIFE PARTNER AH NE AGUVANU NA NENAVBU PAKAVE ILAPA PATTUU….",
+"🌹🌻 IPO ENNODA ORE SANTHOSAM NE MATUMTHA KARANAM.",
+"💖 AJAY, I WILL MISS YOU MORE… AND LOVE YOU AS ALWAYS ❤️🌻"
+];
+
+const loveDiv = document.getElementById("loveMessage");
+
+let lineIndex = 0;
+
+function typeLine(line, i=0){
+    if(i < line.length){
+        loveDiv.innerHTML += line.charAt(i);
+        setTimeout(()=> typeLine(line, i+1), 50); // letter typing speed
+    } else {
+        loveDiv.innerHTML += "<br>"; // new line
+        lineIndex++;
+        if(lineIndex < lines.length){
+            setTimeout(()=> typeLine(lines[lineIndex]), 300); // delay between lines
+        }
+    }
+}
+
+// Start typing
+typeLine(lines[lineIndex]);
+
+
+</script>
+<script>
+let startY = 0;
+let endY = 0;
+
+// Touch start
+document.addEventListener("touchstart", function(e){
+    startY = e.touches[0].clientY;
+});
+
+// Touch end
+document.addEventListener("touchend", function(e){
+    endY = e.changedTouches[0].clientY;
+    handleSwipe();
+});
+
+function handleSwipe(){
+    let diff = startY - endY;
+
+    // Swipe UP sensitivity
+    if(diff > 50){
+        window.location.href = "gallery.html";
+    }
+}
+
+// EXTRA: mouse scroll support (PC users)
+let wheelTimeout = false;
+window.addEventListener("wheel", function(e){
+    if(e.deltaY > 50 && !wheelTimeout){
+        wheelTimeout = true;
+        window.location.href = "gallery.html";
+        setTimeout(()=>wheelTimeout=false, 1000);
+    }
+});
+</script>

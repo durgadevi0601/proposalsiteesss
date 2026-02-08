@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8">
+<title>Our Memory Quiz 🖤</title>
+
+<style>
+*{ box-sizing:border-box; }
+
+body{
+    margin:0;
+    height:100vh;
+    background:#0e0e0e;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:'Segoe UI',sans-serif;
+    color:#eee;
+}
+
+/* QUIZ CARD */
+#quizOverlay{
+    width:90%;
+    max-width:520px;
+    background:#161616;
+    padding:28px;
+    border-radius:14px;
+    text-align:center;
+}
+
+#questionText{
+    font-size:18px;
+    margin-bottom:18px;
+    line-height:1.6;
+}
+
+.option{
+    display:block;
+    background:#222;
+    color:#ddd;
+    border:none;
+    padding:12px;
+    margin:8px 0;
+    border-radius:8px;
+    cursor:pointer;
+    text-align:left;
+}
+.option:hover{
+    background:#2f2f2f;
+}
+
+#feedback{
+    margin-top:14px;
+    font-size:15px;
+}
+
+#nextBtn{
+    display:none;
+    margin-top:18px;
+    padding:10px 22px;
+    border:none;
+    border-radius:20px;
+    background:#444;
+    color:#fff;
+    cursor:pointer;
+}
+
+/* SCORE PAGE (OLD PAPER) */
+#scorePage{
+    display:none;
+    width:90%;
+    max-width:520px;
+    padding:35px;
+    background:#f3e7c9;
+    color:#3b2b1a;
+    border-radius:10px;
+    font-family:'Georgia',serif;
+    box-shadow:0 20px 40px rgba(0,0,0,0.5);
+    text-align:center;
+}
+
+.actionBtn{
+    margin-top:20px;
+    padding:10px 20px;
+    border:none;
+    border-radius:25px;
+    cursor:pointer;
+    background:#3b2b1a;
+    color:#fff;
+}
+</style>
+</head>
+
+<body>
+
+<div id="quizOverlay">
+    <div id="questionText"></div>
+    <div id="options"></div>
+    <div id="feedback"></div>
+    <button id="nextBtn">Next 🖤</button>
+</div>
+
+<div id="scorePage">
+    <div id="scoreText"></div>
+    <button class="actionBtn" onclick="retryQuiz()">Retry 🔁</button><br>
+    <button class="actionBtn" onclick="goEnding()">Continue 💌</button>
+</div>
+
+<script>
+const quiz = [
+  { q:"💗👗 Namma first Time Renduperum Mattum Thaniya Ponapa Na Poturuntha Dress Color Enna?", options:["RED","YELLOW","PINK","BLUE"], answer:1 },
+  { q:"🤍🎀Oru Time Na Unnata Roadla Ennaku Puducha Yellow Flower Katunen Athu Ne Return Poetu Eduppo mahhNu Keta Athu Enga Ponapoo ?", options:["HARI V2","THIRUPARAMKUNDRAM","THENI","MELUR"], answer:3 },
+  { q:"📅 Namma special date?", options:["Jan 1","Feb 14","Jun 22","Dec 31"], answer:2 },
+  { q:"🎶 Namma favourite song?", options:["Song A","Song B","Song C","Song D"], answer:1 },
+  { q:"🤍 Namma romba use pannra emoji?", options:["💗","🥺","🤗","😍"], answer:0 },
+  { q:"🍽️ Together sapta favourite?", options:["Pizza","Biryani","Ice cream","All"], answer:3 },
+  { q:"📸 First photo edutha place?", options:["Home","Road","Beach","Park"], answer:1 },
+  { q:"💍 Forever plan irukka?", options:["Yes","Always Yes","100% Yes","All"], answer:3 }
+];
+
+let index=0, score=0;
+
+const qText=document.getElementById("questionText");
+const optionsBox=document.getElementById("options");
+const feedback=document.getElementById("feedback");
+const nextBtn=document.getElementById("nextBtn");
+const quizOverlay=document.getElementById("quizOverlay");
+const scorePage=document.getElementById("scorePage");
+const scoreText=document.getElementById("scoreText");
+
+showQuestion();
+
+function showQuestion(){
+    feedback.innerHTML="";
+    nextBtn.style.display="none";
+    optionsBox.innerHTML="";
+    qText.innerText=quiz[index].q;
+
+    quiz[index].options.forEach((opt,i)=>{
+        const btn=document.createElement("div");
+        btn.className="option";
+        btn.innerText=opt;
+        btn.onclick=()=>checkAnswer(i);
+        optionsBox.appendChild(btn);
+    });
+}
+
+function checkAnswer(i){
+    if(i===quiz[index].answer){
+        feedback.innerHTML="💗 Kandupudichuteye Ajayyy";
+        score++;
+    }else{
+        feedback.innerHTML="💔 Miss panneta Ajay";
+    }
+    nextBtn.style.display="inline-block";
+}
+
+nextBtn.onclick=()=>{
+    index++;
+    if(index<quiz.length){
+        showQuestion();
+    }else{
+        showScore();
+    }
+};
+
+function showScore(){
+    quizOverlay.style.display="none";
+    scorePage.style.display="block";
+
+    if(score === quiz.length){
+        scoreText.innerHTML =
+        `📜 Ellame correct…<br><br>
+         <b>${score} / ${quiz.length}</b><br><br>
+         💍 Ithu quiz illa…<br>
+         Nee enna purinjukitta proof.<br><br>
+         <b>Will you be mine forever?</b> 🤍`;
+    }else{
+        scoreText.innerHTML =
+        `📜 Konjam miss… aana okay 😌<br><br>
+         <b>Score : ${score} / ${quiz.length}</b><br><br>
+         Love la marks illa… effort pothum 💗`;
+    }
+}
+
+function retryQuiz(){
+    index=0;
+    score=0;
+    scorePage.style.display="none";
+    quizOverlay.style.display="block";
+    showQuestion();
+}
+
+function goEnding(){
+    window.location.href="ourlove.html";
+}
+</script>
+
+</body>
+</html>

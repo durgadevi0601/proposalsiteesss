@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine Cube ❤️</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:radial-gradient(circle,#ffb6c1,#e91e63);
+  font-family:'Segoe UI',sans-serif;
+  overflow:hidden;
+}
+
+/* ===== CUBE ===== */
+.scene{
+  width:220px;
+  height:220px;
+  perspective:800px;
+}
+
+.cube{
+  width:100%;
+  height:100%;
+  position:relative;
+  transform-style:preserve-3d;
+  animation:spin 6s linear infinite;
+}
+
+.face{
+  position:absolute;
+  width:220px;
+  height:220px;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+  background:#fff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.face img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* cube sides */
+.front  { transform: translateZ(110px); }
+.back   { transform: rotateY(180deg) translateZ(110px); }
+.right  { transform: rotateY(90deg) translateZ(110px); }
+.left   { transform: rotateY(-90deg) translateZ(110px); }
+.top    { transform: rotateX(90deg) translateZ(110px); }
+.bottom { transform: rotateX(-90deg) translateZ(110px); }
+
+/* animation */
+@keyframes spin{
+  from{ transform:rotateX(0deg) rotateY(0deg); }
+  to{ transform:rotateX(360deg) rotateY(360deg); }
+}
+
+/* ===== YES BUTTON ===== */
+.yes-btn{
+  padding:12px 22px;
+  border:none;
+  border-radius:25px;
+  background:#e91e63;
+  color:white;
+  font-size:18px;
+  cursor:pointer;
+}
+.yes-btn:hover{
+  background:#c2185b;
+}
+
+/* ===== PAPER OVERLAY ===== */
+#paperOverlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+
+.paper{
+  background:#f5f2e9;
+  width:90%;
+  max-width:380px;
+  padding:25px;
+  border-radius:6px;
+  font-family:'Times New Roman',serif;
+  color:#222;
+  box-shadow:0 15px 40px rgba(0,0,0,0.6);
+  animation:paperOpen 0.8s ease;
+}
+
+.paper h1{
+  text-align:center;
+  margin:0;
+  font-size:26px;
+}
+
+.paper h2{
+  text-align:center;
+  font-size:14px;
+  color:#555;
+  border-bottom:1px solid #999;
+  padding-bottom:6px;
+  margin-bottom:15px;
+}
+
+.paper p{
+  font-size:16px;
+  line-height:1.6;
+  text-align:justify;
+}
+
+.paper button{
+  display:block;
+  margin:20px auto 0;
+  padding:8px 16px;
+  border:none;
+  background:#111;
+  color:#fff;
+  border-radius:4px;
+  cursor:pointer;
+}
+
+@keyframes paperOpen{
+  from{ transform:scaleY(0); opacity:0; }
+  to{ transform:scaleY(1); opacity:1; }
+}
+
+/* mobile */
+@media(max-width:600px){
+  .scene,.face{
+    width:180px;
+    height:180px;
+  }
+  .front  { transform: translateZ(90px); }
+  .back   { transform: rotateY(180deg) translateZ(90px); }
+  .right  { transform: rotateY(90deg) translateZ(90px); }
+  .left   { transform: rotateY(-90deg) translateZ(90px); }
+  .top    { transform: rotateX(90deg) translateZ(90px); }
+  .bottom { transform: rotateX(-90deg) translateZ(90px); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="scene">
+  <div class="cube">
+
+    <div class="face front"><img src="images/1.jpg"></div>
+    <div class="face back"><img src="images/2.jpg"></div>
+    <div class="face right"><img src="images/3.jpg"></div>
+    <div class="face left"><img src="images/4.jpg"></div>
+    <div class="face top"><img src="images/5.jpg"></div>
+
+    <!-- 👇 YES BUTTON IN BOTTOM FACE -->
+    <div class="face bottom">
+        
+      <button class="yes-btn" onclick="location.href='game.html'">
+   YES 💖
+</button>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== NEWSPAPER PAPER ===== -->
+<div id="paperOverlay">
+  <div class="paper">
+    <h1>🗞️ Love Times</h1>
+    <h2>Valentine Special ❤️</h2>
+
+    <p>
+      Ajay,<br><br>
+      Indha vaarthaigal ellame en manasula irundhu vandhadhu 💖  
+      Nee en life-la vandha naal la irundhu  
+      ellame special-aa maariduchu.<br><br>
+
+      💍 Will you stay with me forever?
+    </p>
+
+    
+</div>
+
+<script>
+function openPaper(){
+  document.querySelector(".cube").style.display="none";
+  document.getElementById("paperOverlay").style.display="flex";
+}
+
+function closePaper(){
+  document.getElementById("paperOverlay").style.display="none";
+  document.querySelector(".cube").style.display="block";
+}
+function startGame(){
+  window.location.href = "followgame.html";
+}
+
+</script>
+
+
+</body>
+</html>
