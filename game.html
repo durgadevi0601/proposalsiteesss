@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Ajay Run Game ❤️</title>
+
+<style>
+body{
+  margin:0;
+  overflow:hidden;
+  font-family:Arial, sans-serif;
+}
+
+/* GAME BACKGROUND */
+#gameArea{
+  width:100vw;
+  height:100vh;
+  background:linear-gradient(#87CEEB,#ffffff);
+  position:relative;
+}
+
+/* PLAYER */
+#player{
+  width:120px;
+  position:absolute;
+  bottom:40px;
+  left:50px;
+  transition:transform 0.1s;
+}
+
+/* GROUND */
+#ground{
+  position:absolute;
+  bottom:0;
+  width:200%;
+  height:40px;
+  background:#333;
+  animation:groundMove 3s linear infinite;
+}
+
+@keyframes groundMove{
+  from{ transform:translateX(0); }
+  to{ transform:translateX(-50%); }
+}
+
+/* NAME HUD */
+#hud{
+  position:absolute;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:30px;
+  font-weight:bold;
+  color:#fff;
+  text-shadow:0 0 10px #000;
+}
+</style>
+</head>
+
+<body>
+
+<div id="gameArea">
+
+  <div id="hud">Ajay ❤️ Durga</div>
+
+  <img id="player" src="images/couple.png">
+
+  <div id="ground"></div>
+
+</div>
+
+<script>
+let player = document.getElementById("player");
+
+document.addEventListener("mousemove",(e)=>{
+   let y = e.clientY;
+   let jump = (window.innerHeight - y)/4;
+   player.style.transform = `translateY(-${jump}px)`;
+});
+</script>
+
+</body>
+</html>

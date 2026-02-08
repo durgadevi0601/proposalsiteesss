@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ajay Running To You 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  overflow:hidden;
+  font-family:Segoe UI;
+  background:#ff9ec4;
+}
+
+/* running road background */
+#game{
+  width:100vw;
+  height:100vh;
+  background:url("images/road.png");
+  background-size:cover;
+  animation:roadMove 4s linear infinite;
+  position:relative;
+}
+
+@keyframes roadMove{
+  from{background-position:0 0;}
+  to{background-position:0 1000px;}
+}
+
+/* names top */
+#names{
+  position:absolute;
+  top:15px;
+  width:100%;
+  text-align:center;
+  font-size:28px;
+  color:white;
+  font-weight:bold;
+  text-shadow:0 0 10px black;
+}
+
+/* Ajay runner */
+#player{
+  position:absolute;
+  bottom:20px;
+  left:80px;
+  width:120px;
+}
+
+/* girl goal */
+#goal{
+  position:absolute;
+  bottom:20px;
+  right:40px;
+  width:130px;
+}
+
+/* hearts coins */
+.coin{
+  position:absolute;
+  width:40px;
+  animation:fall 3s linear infinite;
+}
+
+@keyframes fall{
+  from{ top:-50px; }
+  to{ top:110vh; }
+}
+
+/* score */
+#score{
+  position:absolute;
+  top:60px;
+  width:100%;
+  text-align:center;
+  font-size:22px;
+  color:white;
+  font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div id="game">
+
+  <div id="names">AJAY 💙 DURGA</div>
+  <div id="score">Hearts: 0</div>
+
+  <img id="player" src="images/run.gif">
+  <img id="goal" src="images/girl.png">
+
+</div>
+
+<script>
+let hearts = 0;
+const scoreText = document.getElementById("score");
+const player = document.getElementById("player");
+const goal = document.getElementById("goal");
+
+/* player move */
+document.addEventListener("keydown", e=>{
+  let left = player.offsetLeft;
+
+  if(e.key==="ArrowLeft") player.style.left = left-40+"px";
+  if(e.key==="ArrowRight") player.style.left = left+40+"px";
+});
+
+/* spawn hearts */
+setInterval(()=>{
+  const heart = document.createElement("img");
+  heart.src="images/heart.png";
+  heart.className="coin";
+  heart.style.left = Math.random()*90+"%";
+  document.getElementById("game").appendChild(heart);
+
+  /* collect */
+  const fall = setInterval(()=>{
+    const h = heart.getBoundingClientRect();
+    const p = player.getBoundingClientRect();
+
+    if(Math.abs(h.x - p.x) < 60 && Math.abs(h.y - p.y) < 60){
+      hearts++;
+      scoreText.innerText="Hearts: "+hearts;
+      heart.remove();
+      clearInterval(fall);
+    }
+
+    if(h.y > window.innerHeight){
+      heart.remove();
+      clearInterval(fall);
+    }
+  },50);
+},1200);
+
+/* win check */
+setInterval(()=>{
+  const p = player.getBoundingClientRect();
+  const g = goal.getBoundingClientRect();
+
+  if(Math.abs(p.x - g.x) < 80){
+    alert("💖 Ajay reached Durga 💖");
+    window.location.href="ending.html";
+  }
+},100);
+</script>
+
+</body>
+</html>
